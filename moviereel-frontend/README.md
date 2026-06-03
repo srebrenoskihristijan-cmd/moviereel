@@ -19,7 +19,7 @@ npm run dev                 # http://localhost:5173
 
 Demo logins (after the backend seeds): **admin / admin123**, **cinephile / demo123**.
 
-## How it maps to the Part 4 spec
+## How it maps:
 
 - **Routing module** — `react-router-dom`; routes in `App.jsx`, browser
   back/forward works. `ProtectedRoute` guards the admin route by role.
