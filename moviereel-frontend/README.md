@@ -1,4 +1,5 @@
-# MovieReel — Frontend (Web Programming 2026, Part 4)
+# MovieReel — Frontend (Web Programming 2026
+)
 
 A React SPA that consumes the MovieReel REST API. Routing, views and controls
 run entirely client-side; data comes from the backend over REST, with JWT auth.
