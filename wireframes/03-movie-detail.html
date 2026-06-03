@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieReel • Dune: Part Two</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Fraunces:wght@600;700&amp;display=swap');
+        
+        body {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background: #0e0c10;
+            color: #f4ece0;
+        }
+        
+        .font-display {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 700;
+        }
+
+        .mr-nav {
+            background: rgba(14, 12, 16, 0.85);
+            backdrop-filter: blur(12px);
+        }
+
+        .section-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 700;
+            font-size: 32px;
+            letter-spacing: -1px;
+        }
+
+        .gold-btn {
+            background: #e0a93f;
+            color: #0e0c10;
+            font-weight: 700;
+        }
+
+        .review-card {
+            background: #16131b;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 border-b border-white/10 mr-nav">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-[#e0a93f] rounded-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-film text-[#0e0c10] text-3xl"></i>
+                    </div>
+                    <div class="font-display text-3xl font-bold tracking-tighter">MovieReel</div>
+                </div>
+
+                <div class="flex items-center gap-x-2 text-sm">
+                    <a href="01-homepage.html" class="px-5 py-2 rounded-3xl hover:bg-white/5">Home</a>
+                    <a href="02-search.html" class="px-5 py-2 rounded-3xl hover:bg-white/5">Search</a>
+                </div>
+
+                <div class="flex items-center gap-x-3">
+                    <div class="flex items-center gap-x-2">
+                        <div class="w-8 h-8 bg-[#252030] rounded-2xl flex items-center justify-center text-xs font-bold">A</div>
+                        <span class="font-semibold text-sm">admin</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-screen-2xl mx-auto px-8 pt-8">
+        <!-- Back button -->
+        <button onclick="history.back()" class="flex items-center gap-x-2 text-sm mb-6 text-[#a59aaa] hover:text-white">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back</span>
+        </button>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-x-10">
+            
+            <!-- Poster -->
+            <div class="lg:col-span-4">
+                <div class="rounded-3xl overflow-hidden border border-white/10 aspect-[2/3] max-w-[340px]">
+                    <img src="https://picsum.photos/id/1015/600/900" class="w-full h-full object-cover" alt="Dune Part Two">
+                </div>
+            </div>
+
+            <!-- Info -->
+            <div class="lg:col-span-8 pt-2">
+                <div class="flex items-center gap-x-3 mb-3">
+                    <span class="px-4 py-1 text-xs rounded-3xl bg-white/10">Sci-Fi</span>
+                    <span class="text-sm text-[#a59aaa]">2024 • 2h 46m • Denis Villeneuve</span>
+                </div>
+
+                <h1 class="font-display text-6xl tracking-tighter font-bold mb-4">Dune: Part Two</h1>
+
+                <div class="flex items-center gap-x-4 mb-6">
+                    <div class="flex items-center">
+                        <div class="flex text-[#e0a93f] text-2xl">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <span class="ml-3 text-2xl font-semibold">8.7</span>
+                    </div>
+                    <span class="text-[#a59aaa]">124,392 reviews</span>
+                </div>
+
+                <p class="max-w-2xl text-lg leading-relaxed text-[#c2b9a3]">
+                    Paul Atreides unites Chani and the Fremen while seeking revenge for his father's death 
+                    and preventing a terrible future only he can foresee.
+                </p>
+
+                <div class="mt-8">
+                    <button onclick="addToWatchlist()" 
+                            class="px-6 py-3.5 border border-white/20 hover:bg-white/5 transition-colors rounded-3xl flex items-center gap-x-3 text-sm">
+                        <i class="fa-solid fa-bookmark"></i>
+                        <span>Add to watchlist</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="mt-14">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="section-title text-3xl">Reviews</h2>
+                <span class="text-sm text-[#a59aaa]">124 reviews</span>
+            </div>
+
+            <!-- Review Form -->
+            <div class="bg-[#16131b] border border-white/10 rounded-3xl p-6 mb-8">
+                <div class="font-semibold mb-4">Leave a review</div>
+                
+                <div class="flex gap-x-1 mb-4 text-3xl text-[#e0a93f]">
+                    <i class="fa-solid fa-star cursor-pointer"></i>
+                    <i class="fa-solid fa-star cursor-pointer"></i>
+                    <i class="fa-solid fa-star cursor-pointer"></i>
+                    <i class="fa-solid fa-star cursor-pointer"></i>
+                    <i class="fa-solid fa-star cursor-pointer"></i>
+                </div>
+
+                <textarea class="w-full bg-[#0e0c10] border border-white/10 rounded-2xl p-4 text-sm h-24 resize-y" 
+                          placeholder="What did you think about this movie?"></textarea>
+                
+                <div class="mt-4">
+                    <button onclick="submitReview()" 
+                            class="gold-btn px-8 py-3 rounded-3xl text-sm font-semibold">Post review</button>
+                </div>
+            </div>
+
+            <!-- Existing Reviews -->
+            <div class="space-y-4">
+                <div class="review-card rounded-3xl p-5">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center gap-x-3">
+                            <div class="w-9 h-9 bg-[#252030] rounded-2xl flex items-center justify-center font-bold text-sm">C</div>
+                            <div>
+                                <div class="font-semibold">cinephile42</div>
+                                <div class="text-xs text-[#a59aaa]">Feb 12, 2025</div>
+                            </div>
+                        </div>
+                        <div class="flex text-[#e0a93f]">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-[#c2b9a3]">One of the best sci-fi films in years. The visuals are breathtaking and the story is incredibly ambitious.</p>
+                </div>
+
+                <div class="review-card rounded-3xl p-5">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center gap-x-3">
+                            <div class="w-9 h-9 bg-[#252030] rounded-2xl flex items-center justify-center font-bold text-sm">M</div>
+                            <div>
+                                <div class="font-semibold">movielover89</div>
+                                <div class="text-xs text-[#a59aaa]">Jan 28, 2025</div>
+                            </div>
+                        </div>
+                        <div class="flex text-[#e0a93f]">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-[#c2b9a3]">Amazing cinematography but the second half dragged a little for me. Still worth watching.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addToWatchlist() {
+            const btn = event.currentTarget;
+            alert('Added to your watchlist!');
+        }
+        
+        function submitReview() {
+            alert('Thank you! Your review has been posted.');
+            // In real app this would reload reviews
+        }
+        
+        function init() {
+            console.log('%c[MovieReel] Movie detail page loaded', 'color:#e0a93f');
+        }
+        window.onload = init;
+    </script>
+
+    <!-- Опис на функционалностите на оваа маска (Дел 1) -->
+    <div style="max-width: 1180px; margin: 40px auto 20px; padding: 24px; background: #16131b; border: 1px solid #e0a93f; border-radius: 16px;">
+        <h3 style="font-family: 'Fraunces', Georgia, serif; color: #e0a93f; font-size: 20px; margin-bottom: 12px;">Опис на функционалностите на екранот</h3>
+        <p style="color: #f4ece0; line-height: 1.6; font-size: 15px;">
+            Оваа маска го прикажува <strong>деталниот преглед на филм</strong>. Вклучува голем постер, основни информации (жанр, година, време на траење, режисер), просечна оценка со број на рецензии, опис на заплетот, копче за додавање во watchlist, 
+            како и секција за рецензии каде корисниците можат да оставаат свои оценки (со stars) и текстуални коментари. Поддржува и back навигација.
+        </p>
+    </div>
+</body>
+</html>

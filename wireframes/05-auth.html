@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieReel • Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Fraunces:wght@600;700&amp;display=swap');
+        
+        body {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background: #0e0c10;
+            color: #f4ece0;
+        }
+        
+        .font-display {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 700;
+        }
+
+        .gold-btn {
+            background: #e0a93f;
+            color: #0e0c10;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-4xl px-6">
+        <div class="flex justify-center mb-8">
+            <div class="flex items-center gap-x-3">
+                <div class="w-10 h-10 bg-[#e0a93f] rounded-3xl flex items-center justify-center">
+                    <i class="fa-solid fa-film text-[#0e0c10] text-4xl"></i>
+                </div>
+                <div class="font-display text-4xl font-bold tracking-tighter">MovieReel</div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Login -->
+            <div class="bg-[#16131b] border border-white/10 rounded-3xl p-8">
+                <div class="font-semibold text-2xl mb-1">Welcome back</div>
+                <div class="text-[#a59aaa] text-sm mb-8">Log in to rate and review films.</div>
+
+                <div class="space-y-5">
+                    <div>
+                        <label class="text-xs text-[#a59aaa] block mb-1.5">Username</label>
+                        <input type="text" value="admin" class="w-full bg-[#0e0c10] border border-white/10 rounded-2xl px-4 py-3 text-sm">
+                    </div>
+                    <div>
+                        <label class="text-xs text-[#a59aaa] block mb-1.5">Password</label>
+                        <input type="password" value="admin123" class="w-full bg-[#0e0c10] border border-white/10 rounded-2xl px-4 py-3 text-sm">
+                    </div>
+                </div>
+
+                <button onclick="login()" class="mt-7 w-full gold-btn py-4 rounded-3xl font-semibold">Log in</button>
+
+                <div class="text-center text-xs mt-5 text-[#a59aaa]">
+                    Don't have an account? 
+                    <span onclick="showRegister()" class="text-[#e0a93f] cursor-pointer font-medium">Register</span>
+                </div>
+
+                <div class="mt-6 text-[10px] bg-[#0e0c10] p-3 rounded-2xl text-center text-[#a59aaa]">
+                    Demo: <span class="font-mono">admin / admin123</span> or <span class="font-mono">cinephile / demo123</span>
+                </div>
+            </div>
+
+            <!-- Register -->
+            <div id="registerCard" class="bg-[#16131b] border border-white/10 rounded-3xl p-8 hidden">
+                <div class="font-semibold text-2xl mb-1">Create account</div>
+                <div class="text-[#a59aaa] text-sm mb-8">Join to rate and review films.</div>
+
+                <div class="space-y-5">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs text-[#a59aaa] block mb-1.5">Username</label>
+                            <input type="text" class="w-full bg-[#0e0c10] border border-white/10 rounded-2xl px-4 py-3 text-sm">
+                        </div>
+                        <div>
+                            <label class="text-xs text-[#a59aaa] block mb-1.5">Email</label>
+                            <input type="email" class="w-full bg-[#0e0c10] border border-white/10 rounded-2xl px-4 py-3 text-sm">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-xs text-[#a59aaa] block mb-1.5">Password</label>
+                        <input type="password" class="w-full bg-[#0e0c10] border border-white/10 rounded-2xl px-4 py-3 text-sm">
+                    </div>
+                    <div>
+                        <label class="text-xs text-[#a59aaa] block mb-1.5">Confirm Password</label>
+                        <input type="password" class="w-full bg-[#0e0c10] border border-white/10 rounded-2xl px-4 py-3 text-sm">
+                    </div>
+                </div>
+
+                <button onclick="register()" class="mt-7 w-full gold-btn py-4 rounded-3xl font-semibold">Create account</button>
+
+                <div class="text-center text-xs mt-5 text-[#a59aaa]">
+                    Already have an account? 
+                    <span onclick="showLogin()" class="text-[#e0a93f] cursor-pointer font-medium">Log in</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.querySelector('input[type="text"]').value || 'admin';
+            alert(`Logged in as ${username}!`);
+            window.location.href = '01-homepage.html';
+        }
+
+        function register() {
+            alert('Account created successfully! You can now log in.');
+            showLogin();
+        }
+
+        function showRegister() {
+            document.getElementById('registerCard').classList.remove('hidden');
+        }
+
+        function showLogin() {
+            document.getElementById('registerCard').classList.add('hidden');
+        }
+
+        function init() {
+            console.log('%c[MovieReel] Auth pages loaded', 'color:#e0a93f');
+        }
+        window.onload = init;
+    </script>
+
+    <!-- Опис на функционалностите на оваа маска (Дел 1) -->
+    <div style="max-width: 1180px; margin: 40px auto 20px; padding: 24px; background: #16131b; border: 1px solid #e0a93f; border-radius: 16px;">
+        <h3 style="font-family: 'Fraunces', Georgia, serif; color: #e0a93f; font-size: 20px; margin-bottom: 12px;">Опис на функционалностите на екранот</h3>
+        <p style="color: #f4ece0; line-height: 1.6; font-size: 15px;">
+            Оваа маска ги прикажува <strong>формите за најава и регистрација</strong> на корисници. 
+            Вклучува полиња за корисничко име, е-пошта и лозинка (со валидација), копчиња за најава/регистрација и префрлување помеѓу двете форми. 
+            Прикажани се и демо најави за администратор и обичен корисник за полесно тестирање на различните улоги во апликацијата.
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieReel • Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Fraunces:wght@600;700&amp;display=swap');
+        
+        :root {
+            --ink: #0e0c10;
+            --ink2: #16131b;
+            --card: #1b1722;
+            --paper: #f4ece0;
+            --gold: #e0a93f;
+            --muted: #a59aaa;
+        }
+        
+        body {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background: #0e0c10;
+            color: #f4ece0;
+        }
+        
+        .font-display {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 700;
+        }
+
+        .mr-nav {
+            background: rgba(14, 12, 16, 0.85);
+            backdrop-filter: blur(12px);
+        }
+
+        .mr-card {
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                       box-shadow 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .mr-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .mr-hero {
+            background: linear-gradient(135deg, #1b1722 0%, #0e0c10 100%);
+        }
+
+        .section-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 700;
+            font-size: 28px;
+            letter-spacing: -0.5px;
+        }
+
+        .movie-poster {
+            aspect-ratio: 2 / 3;
+            background: linear-gradient(145deg, #252030, #16131b);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .movie-poster::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.7) 100%);
+        }
+
+        .gold-btn {
+            background: #e0a93f;
+            color: #0e0c10;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+        
+        .gold-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        .nav-active {
+            color: #e0a93f;
+            position: relative;
+        }
+        
+        .nav-active:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #e0a93f;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 border-b border-white/10 mr-nav">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-[#e0a93f] rounded-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-film text-[#0e0c10] text-3xl"></i>
+                    </div>
+                    <div class="font-display text-3xl font-bold tracking-tighter">MovieReel</div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="flex items-center gap-x-2 text-sm">
+                    <a href="01-homepage.html" class="px-5 py-2 rounded-3xl font-medium nav-active">Home</a>
+                    <a href="02-search.html" class="px-5 py-2 rounded-3xl hover:bg-white/5 transition-colors">Search</a>
+                    <a href="04-admin.html" class="px-5 py-2 rounded-3xl hover:bg-white/5 transition-colors flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-shield-alt"></i>
+                        <span>Admin</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-x-4">
+                    <!-- Search -->
+                    <div class="flex items-center bg-[#16131b] border border-white/10 rounded-3xl px-4 py-2 w-72 text-sm">
+                        <i class="fa-solid fa-search text-[#a59aaa] mr-3"></i>
+                        <input type="text" placeholder="Quick search..." class="bg-transparent border-none outline-none flex-1 text-sm placeholder:text-[#a59aaa]">
+                    </div>
+
+                    <!-- User -->
+                    <div class="flex items-center gap-x-3">
+                        <div class="flex items-center gap-x-2">
+                            <div class="w-8 h-8 bg-[#252030] rounded-2xl flex items-center justify-center text-xs font-bold">A</div>
+                            <span class="font-semibold text-sm">admin</span>
+                        </div>
+                        <button onclick="logout()" class="text-[#a59aaa] hover:text-white px-3 py-1.5 text-sm flex items-center gap-x-1.5">
+                            <i class="fa-solid fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="max-w-screen-2xl mx-auto px-8 pt-8">
+        <div class="relative rounded-3xl overflow-hidden h-[420px] mr-hero border border-white/10 flex items-end">
+            <!-- Background gradient overlay -->
+            <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+            
+            <div class="relative z-10 p-12 max-w-2xl">
+                <div class="inline-flex items-center gap-x-2 px-4 py-1 rounded-3xl bg-white/10 text-xs tracking-[2px] mb-4">
+                    ★ FEATURED TONIGHT
+                </div>
+                
+                <h1 class="font-display text-6xl leading-none tracking-tighter font-bold mb-4">Dune: Part Two</h1>
+                <p class="max-w-md text-lg text-[#c2b9a3] mb-8">Paul Atreides unites Chani and the Fremen while seeking revenge for his father's death.</p>
+                
+                <button onclick="window.location.href='03-movie-detail.html'" 
+                        class="gold-btn px-8 py-4 rounded-3xl flex items-center gap-x-3 text-base font-semibold">
+                    <i class="fa-solid fa-play mr-1"></i>
+                    <span>View details</span>
+                </button>
+            </div>
+            
+            <!-- Hero poster hint -->
+            <div class="absolute bottom-8 right-8 w-44 h-64 rounded-2xl border border-white/20 overflow-hidden shadow-2xl">
+                <img src="https://picsum.photos/id/1015/300/400" class="w-full h-full object-cover" alt="Dune Part Two">
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Rated -->
+    <div class="max-w-screen-2xl mx-auto px-8 pt-12">
+        <div class="flex items-end justify-between mb-6">
+            <div>
+                <h2 class="section-title">Top rated</h2>
+                <p class="text-[#a59aaa] text-sm">by viewer reviews</p>
+            </div>
+            <a href="02-search.html" class="text-sm flex items-center gap-x-2 text-[#e0a93f]">
+                See all <i class="fa-solid fa-arrow-right ml-1"></i>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-5">
+            <!-- Movie Cards -->
+            <div onclick="window.location.href='03-movie-detail.html'" class="mr-card bg-[#1b1722] rounded-3xl overflow-hidden cursor-pointer border border-white/10">
+                <div class="movie-poster">
+                    <img src="https://picsum.photos/id/1015/300/400" class="w-full h-full object-cover" alt="">
+                    <div class="absolute top-3 right-3 bg-black/70 px-2.5 py-1 rounded-2xl flex items-center gap-x-1 text-xs">
+                        <i class="fa-solid fa-star text-[#e0a93f]"></i>
+                        <span class="font-semibold">8.7</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="font-semibold tracking-tight">Dune: Part Two</div>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="text-xs text-[#a59aaa]">2024 • Sci-Fi</div>
+                    </div>
+                </div>
+            </div>
+
+            <div onclick="window.location.href='03-movie-detail.html'" class="mr-card bg-[#1b1722] rounded-3xl overflow-hidden cursor-pointer border border-white/10">
+                <div class="movie-poster">
+                    <img src="https://picsum.photos/id/1005/300/400" class="w-full h-full object-cover" alt="">
+                    <div class="absolute top-3 right-3 bg-black/70 px-2.5 py-1 rounded-2xl flex items-center gap-x-1 text-xs">
+                        <i class="fa-solid fa-star text-[#e0a93f]"></i>
+                        <span class="font-semibold">8.3</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="font-semibold tracking-tight">Oppenheimer</div>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="text-xs text-[#a59aaa]">2023 • Drama</div>
+                    </div>
+                </div>
+            </div>
+
+            <div onclick="window.location.href='03-movie-detail.html'" class="mr-card bg-[#1b1722] rounded-3xl overflow-hidden cursor-pointer border border-white/10">
+                <div class="movie-poster">
+                    <img src="https://picsum.photos/id/201/300/400" class="w-full h-full object-cover" alt="">
+                    <div class="absolute top-3 right-3 bg-black/70 px-2.5 py-1 rounded-2xl flex items-center gap-x-1 text-xs">
+                        <i class="fa-solid fa-star text-[#e0a93f]"></i>
+                        <span class="font-semibold">7.9</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="font-semibold tracking-tight">Poor Things</div>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="text-xs text-[#a59aaa]">2023 • Comedy</div>
+                    </div>
+                </div>
+            </div>
+
+            <div onclick="window.location.href='03-movie-detail.html'" class="mr-card bg-[#1b1722] rounded-3xl overflow-hidden cursor-pointer border border-white/10">
+                <div class="movie-poster">
+                    <img src="https://picsum.photos/id/251/300/400" class="w-full h-full object-cover" alt="">
+                    <div class="absolute top-3 right-3 bg-black/70 px-2.5 py-1 rounded-2xl flex items-center gap-x-1 text-xs">
+                        <i class="fa-solid fa-star text-[#e0a93f]"></i>
+                        <span class="font-semibold">7.6</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="font-semibold tracking-tight">Challengers</div>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="text-xs text-[#a59aaa]">2024 • Drama</div>
+                    </div>
+                </div>
+            </div>
+
+            <div onclick="window.location.href='03-movie-detail.html'" class="mr-card bg-[#1b1722] rounded-3xl overflow-hidden cursor-pointer border border-white/10">
+                <div class="movie-poster">
+                    <img src="https://picsum.photos/id/160/300/400" class="w-full h-full object-cover" alt="">
+                    <div class="absolute top-3 right-3 bg-black/70 px-2.5 py-1 rounded-2xl flex items-center gap-x-1 text-xs">
+                        <i class="fa-solid fa-star text-[#e0a93f]"></i>
+                        <span class="font-semibold">7.4</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="font-semibold tracking-tight">Furiosa: A Mad Max Saga</div>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="text-xs text-[#a59aaa]">2024 • Action</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recently Added -->
+    <div class="max-w-screen-2xl mx-auto px-8 pt-10 pb-16">
+        <div class="flex items-end justify-between mb-6">
+            <h2 class="section-title">Recently added</h2>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-5">
+            <div onclick="window.location.href='03-movie-detail.html'" class="mr-card bg-[#1b1722] rounded-3xl overflow-hidden cursor-pointer border border-white/10">
+                <div class="movie-poster">
+                    <img src="https://picsum.photos/id/180/300/400" class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <div class="font-semibold">The Holdovers</div>
+                    <div class="text-xs text-[#a59aaa] mt-0.5">2023 • Comedy</div>
+                </div>
+            </div>
+            
+            <div onclick="window.location.href='03-movie-detail.html'" class="mr-card bg-[#1b1722] rounded-3xl overflow-hidden cursor-pointer border border-white/10">
+                <div class="movie-poster">
+                    <img src="https://picsum.photos/id/29/300/400" class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <div class="font-semibold">Anatomy of a Fall</div>
+                    <div class="text-xs text-[#a59aaa] mt-0.5">2023 • Drama</div>
+                </div>
+            </div>
+            
+            <div onclick="window.location.href='03-movie-detail.html'" class="mr-card bg-[#1b1722] rounded-3xl overflow-hidden cursor-pointer border border-white/10">
+                <div class="movie-poster">
+                    <img src="https://picsum.photos/id/133/300/400" class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <div class="font-semibold">The Zone of Interest</div>
+                    <div class="text-xs text-[#a59aaa] mt-0.5">2023 • Drama</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function logout() {
+            if (confirm('Log out?')) {
+                window.location.href = '05-auth.html';
+            }
+        }
+        
+        // Tailwind script
+        function init() {
+            console.log('%c[MovieReel] High-fidelity homepage loaded', 'color:#e0a93f');
+        }
+        window.onload = init;
+    </script>
+
+    <!-- Опис на функционалностите на оваа маска (Дел 1) -->
+    <div style="max-width: 1180px; margin: 40px auto 20px; padding: 24px; background: #16131b; border: 1px solid #e0a93f; border-radius: 16px;">
+        <h3 style="font-family: 'Fraunces', Georgia, serif; color: #e0a93f; font-size: 20px; margin-bottom: 12px;">Опис на функционалностите на екранот</h3>
+        <p style="color: #f4ece0; line-height: 1.6; font-size: 15px;">
+            Оваа маска ја претставува <strong>почетната страница</strong> на апликацијата MovieReel. 
+            Прикажува херо секција со истакнат филм (Dune: Part Two), секција со највисоко оценети филмови според рецензии на корисници и листа на неодамна додадени филмови. 
+            Корисникот може да пребарува филмови преку навигацијата, да се најави/регистрира и да кликне на картичка за да го отвори деталниот приказ на филмот.
+        </p>
+    </div>
+</body>
+</html>

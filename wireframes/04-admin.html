@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieReel • Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Fraunces:wght@600;700&amp;display=swap');
+        
+        body {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background: #0e0c10;
+            color: #f4ece0;
+        }
+        
+        .font-display {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 700;
+        }
+
+        .mr-nav {
+            background: rgba(14, 12, 16, 0.85);
+            backdrop-filter: blur(12px);
+        }
+
+        .section-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 700;
+            font-size: 28px;
+        }
+
+        .stat-card {
+            background: #16131b;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .gold-btn {
+            background: #e0a93f;
+            color: #0e0c10;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 border-b border-white/10 mr-nav">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-[#e0a93f] rounded-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-film text-[#0e0c10] text-3xl"></i>
+                    </div>
+                    <div class="font-display text-3xl font-bold tracking-tighter">MovieReel</div>
+                </div>
+
+                <div class="flex items-center gap-x-2 text-sm">
+                    <a href="01-homepage.html" class="px-5 py-2 rounded-3xl hover:bg-white/5">Home</a>
+                    <a href="02-search.html" class="px-5 py-2 rounded-3xl hover:bg-white/5">Search</a>
+                    <a href="04-admin.html" class="px-5 py-2 rounded-3xl bg-white/5 font-medium">Admin</a>
+                </div>
+
+                <div class="flex items-center gap-x-3">
+                    <div class="px-3 py-1 bg-[#e0a93f] text-[#0e0c10] text-xs font-bold rounded-3xl px-4 flex items-center">ADMIN</div>
+                    <div class="flex items-center gap-x-2">
+                        <div class="w-8 h-8 bg-[#252030] rounded-2xl flex items-center justify-center text-xs font-bold">A</div>
+                        <span class="font-semibold text-sm">admin</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-screen-2xl mx-auto px-8 pt-8">
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="section-title">Admin Dashboard</h1>
+            </div>
+            <div class="flex gap-x-3">
+                <button onclick="importFromTMDB()" class="px-5 py-2.5 border border-white/20 rounded-3xl text-sm flex items-center gap-x-2 hover:bg-white/5">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Import from TMDB</span>
+                </button>
+                <button onclick="showAddMovieModal()" class="gold-btn px-6 py-2.5 rounded-3xl text-sm font-semibold flex items-center gap-x-2">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Add movie</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="stat-card rounded-3xl p-6">
+                <div class="text-xs text-[#a59aaa]">TOTAL MOVIES</div>
+                <div class="text-5xl font-semibold mt-2 tracking-tighter">1,284</div>
+            </div>
+            <div class="stat-card rounded-3xl p-6">
+                <div class="text-xs text-[#a59aaa]">TOTAL REVIEWS</div>
+                <div class="text-5xl font-semibold mt-2 tracking-tighter">24,891</div>
+            </div>
+            <div class="stat-card rounded-3xl p-6">
+                <div class="text-xs text-[#a59aaa]">GENRES</div>
+                <div class="text-5xl font-semibold mt-2 tracking-tighter">18</div>
+            </div>
+            <div class="stat-card rounded-3xl p-6">
+                <div class="text-xs text-[#a59aaa]">AVG RATING</div>
+                <div class="text-5xl font-semibold mt-2 tracking-tighter">7.8</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex border-b border-white/10 mb-5 text-sm">
+            <div class="px-6 py-3 border-b-2 border-[#e0a93f] font-semibold">Movies</div>
+            <div class="px-6 py-3 text-[#a59aaa]">Reviews</div>
+            <div class="px-6 py-3 text-[#a59aaa]">Statistics</div>
+        </div>
+
+        <!-- Movies Table -->
+        <div class="bg-[#16131b] border border-white/10 rounded-3xl overflow-hidden">
+            <table class="w-full">
+                <thead>
+                    <tr class="border-b border-white/10 text-xs text-[#a59aaa]">
+                        <th class="text-left py-4 px-6 font-normal">Title</th>
+                        <th class="text-left py-4 font-normal">Year</th>
+                        <th class="text-left py-4 font-normal">Genre</th>
+                        <th class="text-left py-4 font-normal">Rating</th>
+                        <th class="text-right py-4 pr-6 font-normal">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm divide-y divide-white/10">
+                    <tr>
+                        <td class="py-4 px-6 font-semibold">Dune: Part Two</td>
+                        <td class="py-4">2024</td>
+                        <td class="py-4">Sci-Fi</td>
+                        <td class="py-4">8.7</td>
+                        <td class="py-4 pr-6 text-right">
+                            <button onclick="editMovie(1)" class="px-4 py-1.5 text-xs border border-white/20 rounded-2xl mr-2">Edit</button>
+                            <button onclick="deleteMovie(1)" class="px-4 py-1.5 text-xs text-red-400 border border-red-900/40 rounded-2xl">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-semibold">Oppenheimer</td>
+                        <td class="py-4">2023</td>
+                        <td class="py-4">Drama</td>
+                        <td class="py-4">8.3</td>
+                        <td class="py-4 pr-6 text-right">
+                            <button onclick="editMovie(2)" class="px-4 py-1.5 text-xs border border-white/20 rounded-2xl mr-2">Edit</button>
+                            <button onclick="deleteMovie(2)" class="px-4 py-1.5 text-xs text-red-400 border border-red-900/40 rounded-2xl">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-semibold">Poor Things</td>
+                        <td class="py-4">2023</td>
+                        <td class="py-4">Comedy</td>
+                        <td class="py-4">7.9</td>
+                        <td class="py-4 pr-6 text-right">
+                            <button onclick="editMovie(3)" class="px-4 py-1.5 text-xs border border-white/20 rounded-2xl mr-2">Edit</button>
+                            <button onclick="deleteMovie(3)" class="px-4 py-1.5 text-xs text-red-400 border border-red-900/40 rounded-2xl">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div id="movieModal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[100]">
+        <div class="bg-[#16131b] border border-white/10 rounded-3xl w-full max-w-lg p-8">
+            <div class="flex justify-between items-center mb-6">
+                <div class="font-semibold text-xl" id="modalTitle">Add new movie</div>
+                <button onclick="closeModal()" class="text-[#a59aaa] hover:text-white"><i class="fa-solid fa-times text-xl"></i></button>
+            </div>
+
+            <div class="space-y-5">
+                <div>
+                    <label class="text-xs text-[#a59aaa] block mb-1.5">Title</label>
+                    <input type="text" id="movieTitle" class="w-full bg-[#0e0c10] border border-white/10 rounded-2xl px-4 py-3 text-sm" placeholder="Movie title">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs text-[#a59aaa] block mb-1.5">Year</label>
+                        <input type="text" id="movieYear" class="w-full bg-[#0e0c10] border border-white/10 rounded-2xl px-4 py-3 text-sm" placeholder="2024">
+                    </div>
+                    <div>
+                        <label class="text-xs text-[#a59aaa] block mb-1.5">Genre</label>
+                        <select id="movieGenre" class="w-full bg-[#0e0c10] border border-white/10 rounded-2xl px-4 py-3 text-sm">
+                            <option>Sci-Fi</option>
+                            <option>Drama</option>
+                            <option>Action</option>
+                            <option>Comedy</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-xs text-[#a59aaa] block mb-1.5">Director</label>
+                    <input type="text" id="movieDirector" class="w-full bg-[#0e0c10] border border-white/10 rounded-2xl px-4 py-3 text-sm" placeholder="Denis Villeneuve">
+                </div>
+            </div>
+
+            <div class="flex gap-x-3 mt-8">
+                <button onclick="saveMovie()" class="flex-1 gold-btn py-3.5 rounded-3xl font-semibold">Save movie</button>
+                <button onclick="closeModal()" class="flex-1 py-3.5 rounded-3xl border border-white/20">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showAddMovieModal() {
+            document.getElementById('modalTitle').innerText = 'Add new movie';
+            document.getElementById('movieModal').classList.remove('hidden');
+            document.getElementById('movieModal').classList.add('flex');
+        }
+
+        function editMovie(id) {
+            document.getElementById('modalTitle').innerText = 'Edit movie';
+            document.getElementById('movieModal').classList.remove('hidden');
+            document.getElementById('movieModal').classList.add('flex');
+            
+            // Pre-fill form (demo)
+            if (id === 1) {
+                document.getElementById('movieTitle').value = 'Dune: Part Two';
+                document.getElementById('movieYear').value = '2024';
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('movieModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        function saveMovie() {
+            alert('Movie saved successfully!');
+            closeModal();
+        }
+
+        function deleteMovie(id) {
+            if (confirm('Are you sure you want to delete this movie?')) {
+                alert('Movie deleted.');
+            }
+        }
+
+        function importFromTMDB() {
+            alert('TMDB import modal would open here (demo)');
+        }
+
+        function init() {
+            console.log('%c[MovieReel] Admin dashboard loaded', 'color:#e0a93f');
+        }
+        window.onload = init;
+    </script>
+
+    <!-- Опис на функционалностите на оваа маска (Дел 1) -->
+    <div style="max-width: 1180px; margin: 40px auto 20px; padding: 24px; background: #16131b; border: 1px solid #e0a93f; border-radius: 16px;">
+        <h3 style="font-family: 'Fraunces', Georgia, serif; color: #e0a93f; font-size: 20px; margin-bottom: 12px;">Опис на функционалностите на екранот</h3>
+        <p style="color: #f4ece0; line-height: 1.6; font-size: 15px;">
+            Оваа маска го претставува <strong>административниот dashboard</strong>. Овозможува преглед на статистики (вкупно филмови, рецензии, жанрови, просечна оценка), табеларен преглед на филмови со опции за уредување и бришење, 
+            како и модал форма за додавање нов филм. Администраторот може да увезува филмови директно од надворешен извор (TMDB API) преку копчето "Import from TMDB".
+        </p>
+    </div>
+</body>
+</html>

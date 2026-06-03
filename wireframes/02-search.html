@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieReel • Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Fraunces:wght@600;700&amp;display=swap');
+        
+        body {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background: #0e0c10;
+            color: #f4ece0;
+        }
+        
+        .font-display {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 700;
+        }
+
+        .mr-nav {
+            background: rgba(14, 12, 16, 0.85);
+            backdrop-filter: blur(12px);
+        }
+
+        .mr-card {
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .mr-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .section-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 700;
+            font-size: 28px;
+            letter-spacing: -0.5px;
+        }
+
+        .movie-poster {
+            aspect-ratio: 2 / 3;
+            background: linear-gradient(145deg, #252030, #16131b);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gold-btn {
+            background: #e0a93f;
+            color: #0e0c10;
+            font-weight: 700;
+        }
+
+        .genre-chip {
+            transition: all 0.1s ease;
+        }
+        
+        .genre-chip.active {
+            background: #e0a93f;
+            color: #0e0c10;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 border-b border-white/10 mr-nav">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-[#e0a93f] rounded-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-film text-[#0e0c10] text-3xl"></i>
+                    </div>
+                    <div class="font-display text-3xl font-bold tracking-tighter">MovieReel</div>
+                </div>
+
+                <div class="flex items-center gap-x-2 text-sm">
+                    <a href="01-homepage.html" class="px-5 py-2 rounded-3xl hover:bg-white/5 transition-colors">Home</a>
+                    <a href="02-search.html" class="px-5 py-2 rounded-3xl nav-active font-medium">Search</a>
+                    <a href="04-admin.html" class="px-5 py-2 rounded-3xl hover:bg-white/5 transition-colors flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-shield-alt"></i>
+                        <span>Admin</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-x-3">
+                    <div class="flex items-center bg-[#16131b] border border-white/10 rounded-3xl px-4 py-2 w-80 text-sm">
+                        <i class="fa-solid fa-search text-[#a59aaa] mr-3"></i>
+                        <input type="text" id="searchInput" placeholder="Search by title or director..." 
+                               class="bg-transparent border-none outline-none flex-1 text-sm placeholder:text-[#a59aaa]"
+                               onkeyup="if (event.key === 'Enter') filterMovies()">
+                    </div>
+                    
+                    <div class="flex items-center gap-x-2">
+                        <div class="w-8 h-8 bg-[#252030] rounded-2xl flex items-center justify-center text-xs font-bold">A</div>
+                        <span class="font-semibold text-sm">admin</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-screen-2xl mx-auto px-8 pt-8">
+        <div class="flex items-end justify-between mb-6">
+            <div>
+                <h1 class="section-title">Search the catalogue</h1>
+            </div>
+            <div class="text-sm text-[#a59aaa]" id="resultsCount">248 results</div>
+        </div>
+
+        <!-- Genre Filters -->
+        <div class="flex flex-wrap gap-2 mb-8">
+            <button onclick="filterByGenre(this, 'all')" class="genre-chip active px-5 py-2 text-sm rounded-3xl bg-[#e0a93f] text-[#0e0c10] font-semibold">All</button>
+            <button onclick="filterByGenre(this, 'action')" class="genre-chip px-5 py-2 text-sm rounded-3xl bg-[#1b1722] hover:bg-[#252030]">Action</button>
+            <button onclick="filterByGenre(this, 'drama')" class="genre-chip px-5 py-2 text-sm rounded-3xl bg-[#1b1722] hover:bg-[#252030]">Drama</button>
+            <button onclick="filterByGenre(this, 'scifi')" class="genre-chip px-5 py-2 text-sm rounded-3xl bg-[#1b1722] hover:bg-[#252030]">Sci-Fi</button>
+            <button onclick="filterByGenre(this, 'comedy')" class="genre-chip px-5 py-2 text-sm rounded-3xl bg-[#1b1722] hover:bg-[#252030]">Comedy</button>
+            <button onclick="filterByGenre(this, 'horror')" class="genre-chip px-5 py-2 text-sm rounded-3xl bg-[#1b1722] hover:bg-[#252030]">Horror</button>
+            <button onclick="filterByGenre(this, 'thriller')" class="genre-chip px-5 py-2 text-sm rounded-3xl bg-[#1b1722] hover:bg-[#252030]">Thriller</button>
+        </div>
+
+        <!-- Results Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-5" id="moviesGrid">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <script>
+        const movies = [
+            { id: 1, title: "Dune: Part Two", year: 2024, genre: "scifi", rating: 8.7, poster: "https://picsum.photos/id/1015/300/400" },
+            { id: 2, title: "Oppenheimer", year: 2023, genre: "drama", rating: 8.3, poster: "https://picsum.photos/id/1005/300/400" },
+            { id: 3, title: "Poor Things", year: 2023, genre: "comedy", rating: 7.9, poster: "https://picsum.photos/id/201/300/400" },
+            { id: 4, title: "Challengers", year: 2024, genre: "drama", rating: 7.6, poster: "https://picsum.photos/id/251/300/400" },
+            { id: 5, title: "Furiosa", year: 2024, genre: "action", rating: 7.4, poster: "https://picsum.photos/id/160/300/400" },
+            { id: 6, title: "The Holdovers", year: 2023, genre: "comedy", rating: 8.0, poster: "https://picsum.photos/id/180/300/400" },
+            { id: 7, title: "Anatomy of a Fall", year: 2023, genre: "drama", rating: 7.8, poster: "https://picsum.photos/id/29/300/400" },
+            { id: 8, title: "The Zone of Interest", year: 2023, genre: "drama", rating: 7.5, poster: "https://picsum.photos/id/133/300/400" },
+            { id: 9, title: "Dune", year: 2021, genre: "scifi", rating: 8.0, poster: "https://picsum.photos/id/1016/300/400" },
+            { id: 10, title: "Everything Everywhere All at Once", year: 2022, genre: "action", rating: 7.9, poster: "https://picsum.photos/id/1009/300/400" },
+        ];
+
+        let currentGenre = 'all';
+
+        function renderMovies(filteredMovies) {
+            const grid = document.getElementById('moviesGrid');
+            grid.innerHTML = '';
+
+            filteredMovies.forEach(movie => {
+                const card = document.createElement('div');
+                card.className = `mr-card bg-[#1b1722] rounded-3xl overflow-hidden cursor-pointer border border-white/10`;
+                card.innerHTML = `
+                    <div class="movie-poster">
+                        <img src="${movie.poster}" class="w-full h-full object-cover" alt="${movie.title}">
+                        <div class="absolute top-3 right-3 bg-black/70 px-2.5 py-1 rounded-2xl flex items-center gap-x-1 text-xs">
+                            <i class="fa-solid fa-star text-[#e0a93f]"></i>
+                            <span class="font-semibold">${movie.rating}</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="font-semibold tracking-tight">${movie.title}</div>
+                        <div class="flex justify-between items-center mt-1">
+                            <div class="text-xs text-[#a59aaa]">${movie.year} • ${movie.genre.charAt(0).toUpperCase() + movie.genre.slice(1)}</div>
+                        </div>
+                    </div>
+                `;
+                
+                card.onclick = () => {
+                    window.location.href = `03-movie-detail.html?id=${movie.id}`;
+                };
+                
+                grid.appendChild(card);
+            });
+
+            document.getElementById('resultsCount').textContent = `${filteredMovies.length} results`;
+        }
+
+        function filterMovies() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            let filtered = movies;
+
+            if (currentGenre !== 'all') {
+                filtered = filtered.filter(m => m.genre === currentGenre);
+            }
+
+            if (searchTerm.length > 0) {
+                filtered = filtered.filter(m => 
+                    m.title.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            renderMovies(filtered);
+        }
+
+        function filterByGenre(element, genre) {
+            // Remove active from all
+            document.querySelectorAll('.genre-chip').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            
+            currentGenre = genre;
+            filterMovies();
+        }
+
+        function init() {
+            renderMovies(movies);
+            
+            // Make first genre chip active
+            const firstChip = document.querySelector('.genre-chip');
+            if (firstChip) firstChip.classList.add('active');
+        }
+
+        window.onload = init;
+    </script>
+
+    <!-- Опис на функционалностите на оваа маска (Дел 1) -->
+    <div style="max-width: 1180px; margin: 40px auto 20px; padding: 24px; background: #16131b; border: 1px solid #e0a93f; border-radius: 16px;">
+        <h3 style="font-family: 'Fraunces', Georgia, serif; color: #e0a93f; font-size: 20px; margin-bottom: 12px;">Опис на функционалностите на екранот</h3>
+        <p style="color: #f4ece0; line-height: 1.6; font-size: 15px;">
+            Оваа маска претставува <strong>страница за пребарување и филтрирање</strong> на филмска содржина. 
+            Овозможува пребарување по наслов или режисер, филтрирање по жанр (Action, Drama, Sci-Fi, Comedy, Horror, Thriller) и прикажување на резултати во форма на картички со филмови. 
+            Корисникот може да кликне на филм за да го отвори деталниот приказ. Прикажан е и број на пронајдени резултати.
+        </p>
+    </div>
+</body>
+</html>

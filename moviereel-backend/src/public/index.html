@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MovieReel API</title>
+  <style>
+    body { margin:0; font-family:system-ui,sans-serif; background:#0e0c10; color:#f4ece0;
+      display:flex; min-height:100vh; align-items:center; justify-content:center; }
+    .card { max-width:560px; padding:40px; }
+    h1 { font-size:40px; margin:0 0 6px; }
+    .gold { color:#e0a93f; }
+    p { color:#a59aaa; line-height:1.6; }
+    a { display:inline-block; margin:6px 10px 6px 0; padding:10px 16px; border-radius:10px;
+      text-decoration:none; font-weight:700; background:#e0a93f; color:#1a1206; }
+    a.ghost { background:transparent; color:#f4ece0; border:1px solid rgba(244,236,224,.2); }
+    code { background:#1b1722; padding:2px 6px; border-radius:6px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Movie<span class="gold">Reel</span> API</h1>
+    <p>The REST backend is running. In Part 4 of the project the built React SPA
+       is served from this same <code>/public</code> folder, so visiting
+       <code>/</code> will open the full app.</p>
+    <a href="/api/docs">API Docs (Swagger)</a>
+    <a class="ghost" href="/api/swagger.json">swagger.json</a>
+    <a class="ghost" href="/db">DB reset / seed</a>
+    <a class="ghost" href="/api/movies">GET /api/movies</a>
+  </div>
+</body>
+</html>
